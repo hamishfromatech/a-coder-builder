@@ -32,10 +32,10 @@ on:
 
 env:
   ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
-  APP_NAME: Void
-  GITHUB_BRANCH: dev
+  APP_NAME: A-Coder
+  GITHUB_BRANCH: main
   ASSETS_REPOSITORY: ${{ github.repository_owner }}/binaries
-  BINARY_NAME: void
+  BINARY_NAME: a-coder
   DISABLE_UPDATE: 'yes'
   GH_REPO_PATH: ${{ github.repository_owner }}/binaries
   ORG_NAME: ${{ github.repository_owner }}
