@@ -32,6 +32,7 @@ on:
 
 env:
   APP_NAME: Void
+  GITHUB_BRANCH: dev
   ASSETS_REPOSITORY: ${{ github.repository_owner }}/binaries
   BINARY_NAME: void
   GH_REPO_PATH: ${{ github.repository_owner }}/binaries
