@@ -176,6 +176,11 @@ jobs:
       SHOULD_BUILD: ${{ (needs.check.outputs.SHOULD_BUILD == 'yes' || github.event.inputs.generate_assets == 'true') && 'yes' || 'no' }}
       SHOULD_DEPLOY: ${{ needs.check.outputs.SHOULD_DEPLOY }}
       VSCODE_ARCH: ${{ matrix.vscode_arch }}
+      # Ensure native modules (e.g., isolated-vm) build against Electron headers
+      npm_config_target: '34.3.2'
+      npm_config_runtime: 'electron'
+      npm_config_disturl: 'https://electronjs.org/headers'
+      npm_config_build_from_source: 'true'
     outputs:
       RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
       SHOULD_DEPLOY: ${{ env.SHOULD_DEPLOY }}
