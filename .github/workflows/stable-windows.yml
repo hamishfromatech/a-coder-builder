@@ -33,12 +33,12 @@ on:
 env:
   APP_NAME: A-Coder
   GITHUB_BRANCH: main
-  ASSETS_REPOSITORY: ${{ github.repository_owner }}/binaries
+  ASSETS_REPOSITORY: voideditor/binaries
   BINARY_NAME: a-coder
-  GH_REPO_PATH: ${{ github.repository_owner }}/binaries
+  GH_REPO_PATH: voideditor/binaries
   ORG_NAME: ${{ github.repository_owner }}
   OS_NAME: windows
-  VERSIONS_REPOSITORY: ${{ github.repository_owner }}/versions
+  VERSIONS_REPOSITORY: voideditor/versions
   VSCODE_QUALITY: stable
 
 jobs:

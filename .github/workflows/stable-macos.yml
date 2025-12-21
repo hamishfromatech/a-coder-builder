@@ -37,12 +37,12 @@ env:
   # VSCodium has this be the current repo, voideditor/void-builder:
   # ASSETS_REPOSITORY: ${{ github.repository }}
 
-  ASSETS_REPOSITORY: ${{ github.repository_owner }}/binaries
+  ASSETS_REPOSITORY: voideditor/binaries
   BINARY_NAME: a-coder
-  GH_REPO_PATH: ${{ github.repository_owner }}/binaries
+  GH_REPO_PATH: voideditor/binaries
   ORG_NAME: ${{ github.repository_owner }}
   OS_NAME: osx
-  VERSIONS_REPOSITORY: ${{ github.repository_owner }}/versions
+  VERSIONS_REPOSITORY: voideditor/versions
   VSCODE_QUALITY: stable
 
 jobs:
