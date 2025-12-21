@@ -33,14 +33,14 @@ on:
 env:
   ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
   APP_NAME: A-Coder
-  GITHUB_BRANCH: main
-  ASSETS_REPOSITORY: voideditor/binaries
+  GITHUB_BRANCH: dev
+  ASSETS_REPOSITORY: hamishfromatech/A-Coder
   BINARY_NAME: a-coder
   DISABLE_UPDATE: 'yes'
-  GH_REPO_PATH: voideditor/binaries
+  GH_REPO_PATH: hamishfromatech/A-Coder
   ORG_NAME: ${{ github.repository_owner }}
   OS_NAME: linux
-  VERSIONS_REPOSITORY: voideditor/versions
+  VERSIONS_REPOSITORY: hamishfromatech/versions
   VSCODE_QUALITY: stable
 
 jobs:

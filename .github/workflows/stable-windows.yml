@@ -32,10 +32,10 @@ on:
 
 env:
   APP_NAME: A-Coder
-  GITHUB_BRANCH: main
-  ASSETS_REPOSITORY: voideditor/binaries
+  GITHUB_BRANCH: dev
+  ASSETS_REPOSITORY: hamishfromatech/A-Coder
   BINARY_NAME: a-coder
-  GH_REPO_PATH: voideditor/binaries
+  GH_REPO_PATH: hamishfromatech/A-Coder
   ORG_NAME: ${{ github.repository_owner }}
   OS_NAME: windows
   VERSIONS_REPOSITORY: voideditor/versions
