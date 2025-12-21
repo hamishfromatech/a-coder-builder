@@ -32,7 +32,7 @@ on:
 
 env:
   APP_NAME: A-Coder
-  GITHUB_BRANCH: dev
+  GITHUB_BRANCH: main
   # ASSETS_REPOSITORY is where all the downloads are.
   # VSCodium has this be the current repo, voideditor/void-builder:
   # ASSETS_REPOSITORY: ${{ github.repository }}
