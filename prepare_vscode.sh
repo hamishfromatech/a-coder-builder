@@ -6,14 +6,14 @@ set -e
 # include common functions
 . ./utils.sh
 
-# Void - disable icon copying, we already handled icons
+# ${APP_NAME} - disable icon copying, we already handled icons
 # if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
 #   cp -rp src/insider/* vscode/
 # else
 #   cp -rp src/stable/* vscode/
 # fi
 
-# Void - keep our license...
+# ${APP_NAME} - keep our license...
 # cp -f LICENSE vscode/LICENSE.txt
 
 cd vscode || { echo "'vscode' dir not found"; exit 1; }
@@ -29,7 +29,7 @@ echo "BINARY_NAME=\"${BINARY_NAME}\""
 echo "GH_REPO_PATH=\"${GH_REPO_PATH}\""
 echo "ORG_NAME=\"${ORG_NAME}\""
 
-echo "Applying patches at ../patches/*.patch..." # Void comment
+echo "Applying patches at ../patches/*.patch..." # ${APP_NAME} comment
 for file in ../patches/*.patch; do
   if [[ -f "${file}" ]]; then
     apply_patch "${file}"
@@ -37,7 +37,7 @@ for file in ../patches/*.patch; do
 done
 
 if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
-  echo "Applying insider patches..." # Void comment
+  echo "Applying insider patches..." # ${APP_NAME} comment
   for file in ../patches/insider/*.patch; do
     if [[ -f "${file}" ]]; then
       apply_patch "${file}"
@@ -46,7 +46,7 @@ if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
 fi
 
 if [[ -d "../patches/${OS_NAME}/" ]]; then
-  echo "Applying OS patches (${OS_NAME})..." # Void comment
+  echo "Applying OS patches (${OS_NAME})..." # ${APP_NAME} comment
   for file in "../patches/${OS_NAME}/"*.patch; do
     if [[ -f "${file}" ]]; then
       apply_patch "${file}"
@@ -54,7 +54,7 @@ if [[ -d "../patches/${OS_NAME}/" ]]; then
   done
 fi
 
-echo "Applying user patches..." # Void comment
+echo "Applying user patches..." # ${APP_NAME} comment
 for file in ../patches/user/*.patch; do
   if [[ -f "${file}" ]]; then
     apply_patch "${file}"
@@ -123,23 +123,23 @@ setpath_json() {
 cp product.json{,.bak}
 
 setpath "product" "checksumFailMoreInfoUrl" "https://go.microsoft.com/fwlink/?LinkId=828886"
-setpath "product" "documentationUrl" "https://voideditor.com"
+setpath "product" "documentationUrl" "https://github.com/hamishfromatech/A-Coder"
 # setpath_json "product" "extensionsGallery" '{"serviceUrl": "https://open-vsx.org/vscode/gallery", "itemUrl": "https://open-vsx.org/vscode/item"}'
 setpath "product" "introductoryVideosUrl" "https://go.microsoft.com/fwlink/?linkid=832146"
 setpath "product" "keyboardShortcutsUrlLinux" "https://go.microsoft.com/fwlink/?linkid=832144"
 setpath "product" "keyboardShortcutsUrlMac" "https://go.microsoft.com/fwlink/?linkid=832143"
 setpath "product" "keyboardShortcutsUrlWin" "https://go.microsoft.com/fwlink/?linkid=832145"
-setpath "product" "licenseUrl" "https://github.com/voideditor/void/blob/main/LICENSE.txt"
+setpath "product" "licenseUrl" "https://github.com/hamishfromatech/A-Coder/blob/dev/LICENSE"
 # setpath_json "product" "linkProtectionTrustedDomains" '["https://open-vsx.org"]'
 # setpath "product" "releaseNotesUrl" "https://go.microsoft.com/fwlink/?LinkID=533483#vscode"
-setpath "product" "reportIssueUrl" "https://github.com/voideditor/void/issues/new"
-setpath "product" "requestFeatureUrl" "https://github.com/voideditor/void/issues/new"
+setpath "product" "reportIssueUrl" "https://github.com/hamishfromatech/A-Coder/issues/new"
+setpath "product" "requestFeatureUrl" "https://github.com/hamishfromatech/A-Coder/issues/new"
 setpath "product" "tipsAndTricksUrl" "https://go.microsoft.com/fwlink/?linkid=852118"
-setpath "product" "twitterUrl" "https://x.com/thevoideditor"
+setpath "product" "twitterUrl" "https://x.com/thehamishfromatech"
 
 if [[ "${DISABLE_UPDATE}" != "yes" ]]; then
-  setpath "product" "updateUrl" "https://raw.githubusercontent.com/voideditor/versions/refs/heads/main"
-  setpath "product" "downloadUrl" "https://github.com/voideditor/binaries/releases"
+  setpath "product" "updateUrl" "https://raw.githubusercontent.com/hamishfromatech/versions/refs/heads/main"
+  setpath "product" "downloadUrl" "https://github.com/hamishfromatech/a-coder-builder/releases"
 fi
 
 if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
@@ -181,7 +181,7 @@ else
   setpath "product" "win32NameVersion" "${APP_NAME}"
   setpath "product" "win32RegValueName" "${APP_NAME}"
   setpath "product" "win32ShellNameShort" "${APP_NAME}"
-  # Void - already set in product
+  # ${APP_NAME} - already set in product
   # setpath "product" "win32AppId" "{{88DA3577-054F-4CA1-8122-7D820494CFFB}"
   # setpath "product" "win32x64AppId" "{{9D394D01-1728-45A7-B997-A6C82C5452C3}"
   # setpath "product" "win32arm64AppId" "{{0668DD58-2BDE-4101-8CDA-40252DF8875D}"
@@ -200,27 +200,27 @@ cp package.json{,.bak}
 
 setpath "package" "version" "${RELEASE_VERSION%-insider}"
 
-replace 's|Microsoft Corporation|Void|' package.json
+replace 's|Microsoft Corporation|${APP_NAME}|' package.json
 
 cp resources/server/manifest.json{,.bak}
 
 if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
-  setpath "resources/server/manifest" "name" "Void - Insiders"
-  setpath "resources/server/manifest" "short_name" "Void - Insiders"
+  setpath "resources/server/manifest" "name" "${APP_NAME} - Insiders"
+  setpath "resources/server/manifest" "short_name" "${APP_NAME} - Insiders"
 else
-  setpath "resources/server/manifest" "name" "Void"
-  setpath "resources/server/manifest" "short_name" "Void"
+  setpath "resources/server/manifest" "name" "${APP_NAME}"
+  setpath "resources/server/manifest" "short_name" "${APP_NAME}"
 fi
 
 cp resources/server/manifest.json{,.bak}
 
 if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
-  setpath "resources/server/manifest" "name" "Void - Insiders"
-  setpath "resources/server/manifest" "short_name" "Void - Insiders"
+  setpath "resources/server/manifest" "name" "${APP_NAME} - Insiders"
+  setpath "resources/server/manifest" "short_name" "${APP_NAME} - Insiders"
 else
-  # Void already has this
-  setpath "resources/server/manifest" "name" "Void"
-  setpath "resources/server/manifest" "short_name" "Void"
+  # ${APP_NAME} already has this
+  setpath "resources/server/manifest" "name" "${APP_NAME}"
+  setpath "resources/server/manifest" "short_name" "${APP_NAME}"
 fi
 
 # announcements
@@ -228,44 +228,44 @@ fi
 
 ../undo_telemetry.sh
 
-replace 's|Microsoft Corporation|Void|' build/lib/electron.js
-replace 's|Microsoft Corporation|Void|' build/lib/electron.ts
-replace 's|([0-9]) Microsoft|\1 Void|' build/lib/electron.js
-replace 's|([0-9]) Microsoft|\1 Void|' build/lib/electron.ts
+replace 's|Microsoft Corporation|${APP_NAME}|' build/lib/electron.js
+replace 's|Microsoft Corporation|${APP_NAME}|' build/lib/electron.ts
+replace 's|([0-9]) Microsoft|\1 ${APP_NAME}|' build/lib/electron.js
+replace 's|([0-9]) Microsoft|\1 ${APP_NAME}|' build/lib/electron.ts
 
 if [[ "${OS_NAME}" == "linux" ]]; then
   # microsoft adds their apt repo to sources
   # unless the app name is code-oss
-  # as we are renaming the application to void
+  # as we are renaming the application to ${APP_NAME_LC}
   # we need to edit a line in the post install template
   if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
-    sed -i "s/code-oss/void-insiders/" resources/linux/debian/postinst.template
+    sed -i "s/code-oss/${APP_NAME_LC}-insiders/" resources/linux/debian/postinst.template
   else
-    sed -i "s/code-oss/void/" resources/linux/debian/postinst.template
+    sed -i "s/code-oss/${APP_NAME_LC}/" resources/linux/debian/postinst.template
   fi
 
   # fix the packages metadata
   # code.appdata.xml
-  sed -i 's|Visual Studio Code|Void|g' resources/linux/code.appdata.xml
-  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://voideditor.com|' resources/linux/code.appdata.xml
+  sed -i "s|Visual Studio Code|${APP_NAME}|g" resources/linux/code.appdata.xml
+  sed -i "s|https://code.visualstudio.com/docs/setup/linux|https://github.com/hamishfromatech/A-Coder|" resources/linux/code.appdata.xml
   sed -i 's|https://code.visualstudio.com/home/home-screenshot-linux-lg.png|https://vscodium.com/img/vscodium.png|' resources/linux/code.appdata.xml
-  sed -i 's|https://code.visualstudio.com|https://voideditor.com|' resources/linux/code.appdata.xml
+  sed -i "s|https://code.visualstudio.com|https://github.com/hamishfromatech/A-Coder|" resources/linux/code.appdata.xml
 
   # control.template
-  sed -i 's|Microsoft Corporation <vscode-linux@microsoft.com>|Void Team <team@voideditor.com>|'  resources/linux/debian/control.template
-  sed -i 's|Visual Studio Code|Void|g' resources/linux/debian/control.template
-  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://voideditor.com|' resources/linux/debian/control.template
-  sed -i 's|https://code.visualstudio.com|https://voideditor.com|' resources/linux/debian/control.template
+  sed -i "s|Microsoft Corporation <vscode-linux@microsoft.com>|${APP_NAME} Team <team@github.com/hamishfromatech/A-Coder>|"  resources/linux/debian/control.template
+  sed -i "s|Visual Studio Code|${APP_NAME}|g" resources/linux/debian/control.template
+  sed -i "s|https://code.visualstudio.com/docs/setup/linux|https://github.com/hamishfromatech/A-Coder|" resources/linux/debian/control.template
+  sed -i "s|https://code.visualstudio.com|https://github.com/hamishfromatech/A-Coder|" resources/linux/debian/control.template
 
   # code.spec.template
-  sed -i 's|Microsoft Corporation|Void Team|' resources/linux/rpm/code.spec.template
-  sed -i 's|Visual Studio Code Team <vscode-linux@microsoft.com>|Void Team <team@voideditor.com>|' resources/linux/rpm/code.spec.template
-  sed -i 's|Visual Studio Code|Void|' resources/linux/rpm/code.spec.template
-  sed -i 's|https://code.visualstudio.com/docs/setup/linux|https://voideditor.com|' resources/linux/rpm/code.spec.template
-  sed -i 's|https://code.visualstudio.com|https://voideditor.com|' resources/linux/rpm/code.spec.template
+  sed -i "s|Microsoft Corporation|${APP_NAME} Team|" resources/linux/rpm/code.spec.template
+  sed -i "s|Visual Studio Code Team <vscode-linux@microsoft.com>|${APP_NAME} Team <team@github.com/hamishfromatech/A-Coder>|" resources/linux/rpm/code.spec.template
+  sed -i "s|Visual Studio Code|${APP_NAME}|" resources/linux/rpm/code.spec.template
+  sed -i "s|https://code.visualstudio.com/docs/setup/linux|https://github.com/hamishfromatech/A-Coder|" resources/linux/rpm/code.spec.template
+  sed -i "s|https://code.visualstudio.com|https://github.com/hamishfromatech/A-Coder|" resources/linux/rpm/code.spec.template
 
   # snapcraft.yaml
-  sed -i 's|Visual Studio Code|Void|'  resources/linux/rpm/code.spec.template
+  sed -i 's|Visual Studio Code|${APP_NAME}|'  resources/linux/rpm/code.spec.template
 elif [[ "${OS_NAME}" == "windows" ]]; then
   # code.iss
   sed -i "s|https://code.visualstudio.com|https://github.com/hamishfromatech/A-Coder|" build/win32/code.iss

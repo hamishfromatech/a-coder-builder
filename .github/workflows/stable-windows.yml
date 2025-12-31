@@ -38,7 +38,7 @@ env:
   GH_REPO_PATH: hamishfromatech/A-Coder
   ORG_NAME: ${{ github.repository_owner }}
   OS_NAME: windows
-  VERSIONS_REPOSITORY: voideditor/versions
+  VERSIONS_REPOSITORY: hamishfromatech/versions
   VSCODE_QUALITY: stable
 
 jobs:
