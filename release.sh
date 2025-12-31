@@ -37,6 +37,7 @@ if [[ $( gh release view "${RELEASE_VERSION}" --repo "${ASSETS_REPOSITORY}" 2>&1
   fi
 fi
 
+mkdir -p assets
 cd assets
 
 set +e

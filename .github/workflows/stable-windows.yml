@@ -32,7 +32,7 @@ on:
 
 env:
   APP_NAME: A-Coder
-  GITHUB_BRANCH: main
+  GITHUB_BRANCH: dev
   ASSETS_REPOSITORY: hamishfromatech/A-Coder
   BINARY_NAME: a-coder
   GH_REPO_PATH: hamishfromatech/A-Coder

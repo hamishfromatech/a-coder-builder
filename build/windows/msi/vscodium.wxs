@@ -1045,12 +1045,12 @@
               </Extension>
             </ProgId>
           </Component>
-          <Component Id="AddFileTypeAssociation$(var.AppCodeName)SourceFile" Guid="*">
+          <Component Id="AddFileTypeAssociationSourceFile" Guid="*">
             <RegistryValue Root="HKCR" Key="$(var.AppCodeName)SourceFile" Value="$(var.AppName)" Type="string" Action="write" />
             <RegistryValue Root="HKCR" Key="$(var.AppCodeName)SourceFile\DefaultIcon" Value="[#DEFAULT.ICO]" Type="string" Action="write" />
             <RegistryValue Root="HKCR" Key="$(var.AppCodeName)SourceFile\shell\open\command" Value="&quot;[APPLICATIONFOLDER]$(var.AppName).exe&quot; &quot;%1&quot;" Type="string" Action="write" />
           </Component>
-          <Component Id="AddFileTypeAssociationApplications$(var.AppCodeName)" Guid="*">
+          <Component Id="AddFileTypeAssociationApplications" Guid="*">
             <RegistryValue Root="HKCR" Key="Applications\$(var.AppName).exe\DefaultIcon" Value="[#DEFAULT.ICO]" Type="string" Action="write" />
             <RegistryValue Root="HKCR" Key="Applications\$(var.AppName).exe\shell\open\command" Value="&quot;[APPLICATIONFOLDER]$(var.AppName).exe&quot; &quot;%1&quot;" Type="string" Action="write" />
           </Component>
@@ -1108,8 +1108,8 @@
         <ComponentRef Id="DesktopShortcut" />
       </Feature>
       <Feature Id="FeatureFileTypeAssociations" Title="!(loc.FeatureFileTypeAssociationsTitle)" Description="!(loc.FeatureFileTypeAssociationsDescription)" Level="2" Absent="allow" AllowAdvertise="no" InstallDefault="followParent">
-        <ComponentRef Id="AddFileTypeAssociation$(var.AppCodeName)SourceFile" />
-        <ComponentRef Id="AddFileTypeAssociationApplications$(var.AppCodeName)" />
+        <ComponentRef Id="AddFileTypeAssociationSourceFile" />
+        <ComponentRef Id="AddFileTypeAssociationApplications" />
 
         <Feature Id="FeatureFileTypeAssocASCX" Title=".ascx" Description="ASCX" Level="2" Absent="allow" AllowAdvertise="no" InstallDefault="followParent">
           <ComponentRef Id="AddFileTypeAssociationASCX" />

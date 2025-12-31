@@ -33,7 +33,7 @@ on:
 env:
   ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
   APP_NAME: A-Coder
-  GITHUB_BRANCH: main
+  GITHUB_BRANCH: dev
   ASSETS_REPOSITORY: hamishfromatech/A-Coder
   BINARY_NAME: a-coder
   DISABLE_UPDATE: 'yes'
