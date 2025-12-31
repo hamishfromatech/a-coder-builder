@@ -143,22 +143,22 @@ if [[ "${DISABLE_UPDATE}" != "yes" ]]; then
 fi
 
 if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
-  setpath "product" "nameShort" "Void - Insiders"
-  setpath "product" "nameLong" "Void - Insiders"
-  setpath "product" "applicationName" "void-insiders"
-  setpath "product" "dataFolderName" ".void-insiders"
-  setpath "product" "linuxIconName" "void-insiders"
+  setpath "product" "nameShort" "${APP_NAME} - Insiders"
+  setpath "product" "nameLong" "${APP_NAME} - Insiders"
+  setpath "product" "applicationName" "${APP_NAME_LC}-insiders"
+  setpath "product" "dataFolderName" ".${APP_NAME_LC}-insiders"
+  setpath "product" "linuxIconName" "${APP_NAME_LC}-insiders"
   setpath "product" "quality" "insider"
-  setpath "product" "urlProtocol" "void-insiders"
-  setpath "product" "serverApplicationName" "void-server-insiders"
-  setpath "product" "serverDataFolderName" ".void-server-insiders"
-  setpath "product" "darwinBundleIdentifier" "ai.voideditor.VoidInsiders"
-  setpath "product" "win32AppUserModelId" "Void.VoidInsiders"
-  setpath "product" "win32DirName" "Void Insiders"
-  setpath "product" "win32MutexName" "voidinsiders"
-  setpath "product" "win32NameVersion" "Void Insiders"
-  setpath "product" "win32RegValueName" "VoidInsiders"
-  setpath "product" "win32ShellNameShort" "Void Insiders"
+  setpath "product" "urlProtocol" "${APP_NAME_LC}-insiders"
+  setpath "product" "serverApplicationName" "${APP_NAME_LC}-server-insiders"
+  setpath "product" "serverDataFolderName" ".${APP_NAME_LC}-server-insiders"
+  setpath "product" "darwinBundleIdentifier" "ai.${APP_NAME_LC}.${APP_NAME}Insiders"
+  setpath "product" "win32AppUserModelId" "${APP_NAME}.${APP_NAME}Insiders"
+  setpath "product" "win32DirName" "${APP_NAME} Insiders"
+  setpath "product" "win32MutexName" "${APP_NAME_LC}insiders"
+  setpath "product" "win32NameVersion" "${APP_NAME} Insiders"
+  setpath "product" "win32RegValueName" "${APP_NAME}Insiders"
+  setpath "product" "win32ShellNameShort" "${APP_NAME} Insiders"
   setpath "product" "win32AppId" "{{5893CE20-77AA-4856-A655-ECE65CBCF1C7}"
   setpath "product" "win32x64AppId" "{{7A261980-5847-44B6-B554-31DF0F5CDFC9}"
   setpath "product" "win32arm64AppId" "{{EE4FF7AA-A874-419D-BAE0-168C9DBCE211}"
@@ -166,21 +166,21 @@ if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
   setpath "product" "win32x64UserAppId" "{{5B1813E3-1D97-4E00-AF59-C59A39CF066A}"
   setpath "product" "win32arm64UserAppId" "{{C2FA90D8-B265-41B1-B909-3BAEB21CAA9D}"
 else
-  setpath "product" "nameShort" "Void"
-  setpath "product" "nameLong" "Void"
-  setpath "product" "applicationName" "void"
-  setpath "product" "linuxIconName" "void"
+  setpath "product" "nameShort" "${APP_NAME}"
+  setpath "product" "nameLong" "${APP_NAME}"
+  setpath "product" "applicationName" "${APP_NAME_LC}"
+  setpath "product" "linuxIconName" "${APP_NAME_LC}"
   setpath "product" "quality" "stable"
-  setpath "product" "urlProtocol" "void"
-  setpath "product" "serverApplicationName" "void-server"
-  setpath "product" "serverDataFolderName" ".void-server"
-  setpath "product" "darwinBundleIdentifier" "com.void"
-  setpath "product" "win32AppUserModelId" "Void.Void"
-  setpath "product" "win32DirName" "Void"
-  setpath "product" "win32MutexName" "void"
-  setpath "product" "win32NameVersion" "Void"
-  setpath "product" "win32RegValueName" "Void"
-  setpath "product" "win32ShellNameShort" "Void"
+  setpath "product" "urlProtocol" "${APP_NAME_LC}"
+  setpath "product" "serverApplicationName" "${APP_NAME_LC}-server"
+  setpath "product" "serverDataFolderName" ".${APP_NAME_LC}-server"
+  setpath "product" "darwinBundleIdentifier" "com.${APP_NAME_LC}"
+  setpath "product" "win32AppUserModelId" "${APP_NAME}.${APP_NAME}"
+  setpath "product" "win32DirName" "${APP_NAME}"
+  setpath "product" "win32MutexName" "${APP_NAME_LC}"
+  setpath "product" "win32NameVersion" "${APP_NAME}"
+  setpath "product" "win32RegValueName" "${APP_NAME}"
+  setpath "product" "win32ShellNameShort" "${APP_NAME}"
   # Void - already set in product
   # setpath "product" "win32AppId" "{{88DA3577-054F-4CA1-8122-7D820494CFFB}"
   # setpath "product" "win32x64AppId" "{{9D394D01-1728-45A7-B997-A6C82C5452C3}"
@@ -268,8 +268,8 @@ if [[ "${OS_NAME}" == "linux" ]]; then
   sed -i 's|Visual Studio Code|Void|'  resources/linux/rpm/code.spec.template
 elif [[ "${OS_NAME}" == "windows" ]]; then
   # code.iss
-  sed -i 's|https://code.visualstudio.com|https://voideditor.com|' build/win32/code.iss
-  sed -i 's|Microsoft Corporation|Void|' build/win32/code.iss
+  sed -i "s|https://code.visualstudio.com|https://github.com/hamishfromatech/A-Coder|" build/win32/code.iss
+  sed -i "s|Microsoft Corporation|${APP_NAME}|" build/win32/code.iss
 fi
 
 cd ..
