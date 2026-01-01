@@ -32,17 +32,21 @@ if [[ "${OS_NAME}" == "osx" ]]; then
   export OPENSSL_LIB_DIR="$( pwd )/openssl/out/${VSCODE_ARCH}-osx/lib"
   export OPENSSL_INCLUDE_DIR="$( pwd )/openssl/out/${VSCODE_ARCH}-osx/include"
 
-  cargo build --release --target "${VSCODE_CLI_TARGET}" --bin=code --cap-lints=allow
+  export RUSTFLAGS="${RUSTFLAGS} --cap-lints=allow"
+
+  cargo build --release --target "${VSCODE_CLI_TARGET}" --bin=code
 
   cp "target/${VSCODE_CLI_TARGET}/release/code" "../../VSCode-darwin-${VSCODE_ARCH}/${NAME_SHORT}.app/Contents/Resources/app/bin/${TUNNEL_APPLICATION_NAME}"
 elif [[ "${OS_NAME}" == "windows" ]]; then
   if [[ "${VSCODE_ARCH}" == "arm64" ]]; then
     VSCODE_CLI_TARGET="aarch64-pc-windows-msvc"
-    export VSCODE_CLI_RUST="-C target-feature=+crt-static -Clink-args=/guard:cf -Clink-args=/CETCOMPAT:NO"
+    export RUSTFLAGS="-C target-feature=+crt-static -Clink-args=/guard:cf -Clink-args=/CETCOMPAT:NO"
   else
     VSCODE_CLI_TARGET="x86_64-pc-windows-msvc"
-    export VSCODE_CLI_RUSTFLAGS="-Ctarget-feature=+crt-static -Clink-args=/guard:cf -Clink-args=/CETCOMPAT"
+    export RUSTFLAGS="-Ctarget-feature=+crt-static -Clink-args=/guard:cf -Clink-args=/CETCOMPAT"
   fi
+
+  export RUSTFLAGS="${RUSTFLAGS} --cap-lints=allow"
 
   export VSCODE_CLI_CFLAGS="/guard:cf /Qspectre"
   export OPENSSL_LIB_DIR="$( pwd )/openssl/out/${VSCODE_ARCH}-windows-static/lib"
@@ -50,7 +54,7 @@ elif [[ "${OS_NAME}" == "windows" ]]; then
 
   rustup target add "${VSCODE_CLI_TARGET}"
 
-  cargo build --release --target "${VSCODE_CLI_TARGET}" --bin=code --cap-lints=allow
+  cargo build --release --target "${VSCODE_CLI_TARGET}" --bin=code
 
   cp "target/${VSCODE_CLI_TARGET}/release/code.exe" "../../VSCode-win32-${VSCODE_ARCH}/bin/${TUNNEL_APPLICATION_NAME}.exe"
 else
@@ -86,7 +90,9 @@ else
   if [[ -n "${VSCODE_CLI_TARGET}" ]]; then
     rustup target add "${VSCODE_CLI_TARGET}"
 
-    cargo build --release --target "${VSCODE_CLI_TARGET}" --bin=code --cap-lints=allow
+    export RUSTFLAGS="${RUSTFLAGS} --cap-lints=allow"
+
+    cargo build --release --target "${VSCODE_CLI_TARGET}" --bin=code
 
     cp "target/${VSCODE_CLI_TARGET}/release/code" "../../VSCode-linux-${VSCODE_ARCH}/bin/${TUNNEL_APPLICATION_NAME}"
   fi
