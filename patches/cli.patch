@@ -300,3 +300,37 @@ index 9033914..a39bbf7 100644
 -	}
 -
  	pub fn env_default() -> Option<Platform> {
+diff --git a/cli/src/tunnels/code_server.rs b/cli/src/tunnels/code_server.rs
+index cf00bc4..b564330 100644
+--- a/cli/src/tunnels/code_server.rs
++++ b/cli/src/tunnels/code_server.rs
+@@ -26,3 +26,3 @@
+-use crate::{debug, info, log, spanf, trace, warning};
++use crate::log;
+diff --git a/cli/src/tunnels/dev_tunnels.rs b/cli/src/tunnels/dev_tunnels.rs
+index cf00bc4..b564330 100644
+--- a/cli/src/tunnels/dev_tunnels.rs
++++ b/cli/src/tunnels/dev_tunnels.rs
+@@ -14,3 +14,3 @@
+-use crate::{debug, info, log, spanf, trace, warning};
++use crate::log;
+diff --git a/cli/src/update_service.rs b/cli/src/update_service.rs
+index 9033914..a39bbf7 100644
+--- a/cli/src/update_service.rs
++++ b/cli/src/update_service.rs
+@@ -12,3 +12,3 @@
+-	debug, log, options, spanf,
++	log, options,
+diff --git a/cli/src/auth.rs b/cli/src/auth.rs
+index cf00bc4..b564330 100644
+--- a/cli/src/auth.rs
++++ b/cli/src/auth.rs
+@@ -229,3 +229,3 @@
+-struct ThreadKeyringStorage {
++#[allow(dead_code)]
++struct ThreadKeyringStorage {
+@@ -234,3 +234,3 @@
+ impl ThreadKeyringStorage {
+-	fn thread_op<R, Fn>(&mut self, f: Fn) -> Result<R, AnyError>
++	#[allow(dead_code)]
++	fn thread_op<R, Fn>(&mut self, f: Fn) -> Result<R, AnyError>
