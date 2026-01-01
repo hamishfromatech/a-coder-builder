@@ -62,7 +62,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ env.GITHUB_BRANCH }}
+          ref: main
 
       - name: Switch to relevant branch
         env:

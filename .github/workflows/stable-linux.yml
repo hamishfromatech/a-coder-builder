@@ -56,7 +56,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ env.GITHUB_BRANCH }}
+          ref: main
 
       - name: Switch to relevant branch
         env:
@@ -96,7 +96,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ env.GITHUB_BRANCH }}
+          ref: main
         if: env.SHOULD_BUILD == 'yes'
 
       - name: Switch to relevant branch
@@ -216,7 +216,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ env.GITHUB_BRANCH }}
+          ref: main
         if: env.DISABLED != 'yes' && env.SHOULD_BUILD == 'yes'
 
       - name: Switch to relevant branch
@@ -331,7 +331,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ env.GITHUB_BRANCH }}
+          ref: main
         if: env.DISABLED != 'yes'
 
       - name: Switch to relevant branch
@@ -432,7 +432,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ env.GITHUB_BRANCH }}
+          ref: main
 
       - name: Switch to relevant branch
         env:
