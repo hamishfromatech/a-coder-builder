@@ -23,6 +23,9 @@ else
 	SETUP_RESOURCES_DIR=".\\resources\\stable"
 fi
 
+# Replace hyphens with underscores for WiX identifier compatibility
+PRODUCT_CODE="${PRODUCT_CODE//-/_}"
+
 PRODUCT_ID=$( powershell.exe -command "[guid]::NewGuid().ToString().ToUpper()" )
 PRODUCT_ID="${PRODUCT_ID%%[[:cntrl:]]}"
 
