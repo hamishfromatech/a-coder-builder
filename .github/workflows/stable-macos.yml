@@ -80,6 +80,11 @@ jobs:
           python-version: '3.11'
         if: env.VSCODE_ARCH == 'x64'
 
+      - name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          targets: ${{ matrix.vscode_arch == 'x64' && 'x86_64-apple-darwin' || 'aarch64-apple-darwin' }}
+
       - name: Clone VSCode repo
         env: # Void added this
           VOID_COMMIT: ${{ github.event.inputs.void_commit }} # Void added this
