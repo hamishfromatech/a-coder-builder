@@ -4,8 +4,8 @@
 set -ex
 
 if [[ -z "${GH_TOKEN}" ]] && [[ -z "${GITHUB_TOKEN}" ]] && [[ -z "${GH_ENTERPRISE_TOKEN}" ]] && [[ -z "${GITHUB_ENTERPRISE_TOKEN}" ]]; then
-  echo "Will not release because no GITHUB_TOKEN defined"
-  exit
+  echo "Error: Will not release because no GITHUB_TOKEN defined"
+  exit 1
 fi
 
 REPOSITORY_OWNER="${ASSETS_REPOSITORY/\/*/}"
@@ -19,9 +19,15 @@ if [[ $( gh release view "${RELEASE_VERSION}" --repo "${ASSETS_REPOSITORY}" 2>&1
   if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
     NOTES="update vscode to [${MS_COMMIT}](https://github.com/microsoft/vscode/tree/${MS_COMMIT})"
 
-    gh release create "${RELEASE_VERSION}" --repo "${ASSETS_REPOSITORY}" --title "${VOID_VERSION}" --notes "${NOTES}"
+    if ! gh release create "${RELEASE_VERSION}" --repo "${ASSETS_REPOSITORY}" --title "${VOID_VERSION}" --notes "${NOTES}"; then
+      echo "Failed to create release ${RELEASE_VERSION}"
+      exit 1
+    fi
   else
-    gh release create "${RELEASE_VERSION}" --repo "${ASSETS_REPOSITORY}" --title "${VOID_VERSION}" --generate-notes
+    if ! gh release create "${RELEASE_VERSION}" --repo "${ASSETS_REPOSITORY}" --title "${VOID_VERSION}" --generate-notes; then
+      echo "Failed to create release ${RELEASE_VERSION}"
+      exit 1
+    fi
 
     . ./utils.sh
 
