@@ -20,6 +20,8 @@ on:
         description: Custom release number
   repository_dispatch:
     types: [stable]
+  release:
+    types: [published]
   push:
     branches: [ main ]
     paths-ignore:
