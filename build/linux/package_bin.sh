@@ -130,6 +130,9 @@ node build/azure-pipelines/distro/mixin-npm
 
 npm run gulp "vscode-linux-${VSCODE_ARCH}-min-ci"
 
+# Strip non-ASCII characters from minified output (workaround for emoji issues)
+. ../strip_non_ascii.sh
+
 if [[ -f "../build/linux/${VSCODE_ARCH}/ripgrep.sh" ]]; then
   bash "../build/linux/${VSCODE_ARCH}/ripgrep.sh" "../VSCode-linux-${VSCODE_ARCH}/resources/app/node_modules"
 fi

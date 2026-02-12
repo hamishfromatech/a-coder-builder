@@ -26,6 +26,9 @@ node build/azure-pipelines/distro/mixin-npm
 
 npm run gulp "vscode-win32-${VSCODE_ARCH}-min-ci"
 
+# Strip non-ASCII characters from minified output (workaround for emoji issues)
+. ../strip_non_ascii.sh
+
 . ../build_cli.sh
 
 if [[ "${VSCODE_ARCH}" == "x64" ]]; then

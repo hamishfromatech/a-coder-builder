@@ -26,6 +26,9 @@ if [[ "${SHOULD_BUILD}" == "yes" ]]; then
   npm run gulp compile-extensions-build
   npm run gulp minify-vscode
 
+  # Strip non-ASCII characters from minified output (workaround for emoji issues)
+  . ../strip_non_ascii.sh
+
   if [[ "${OS_NAME}" == "osx" ]]; then
     # generate Group Policy definitions
     # node build/lib/policies darwin # Void commented this out
