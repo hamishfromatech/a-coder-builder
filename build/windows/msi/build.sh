@@ -7,7 +7,7 @@ CALLER_DIR=$( pwd )
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 WIN_SDK_MAJOR_VERSION="10"
-WIN_SDK_FULL_VERSION="10.0.22621.0"
+WIN_SDK_FULL_VERSION="10.0.26100.0"
 
 if [[ "${VSCODE_QUALITY}" == "insider" ]]; then
 	PRODUCT_NAME="${APP_NAME} - Insiders"
