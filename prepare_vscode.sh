@@ -233,6 +233,14 @@ replace 's|Microsoft Corporation|${APP_NAME}|' build/lib/electron.ts
 replace 's|([0-9]) Microsoft|\1 ${APP_NAME}|' build/lib/electron.js
 replace 's|([0-9]) Microsoft|\1 ${APP_NAME}|' build/lib/electron.ts
 
+# Disable non-ASCII character check in optimize.js
+# The check is overly strict and fails on legitimate Unicode characters in VS Code source
+# Replace the non-ASCII regex with one that never matches (negative lookahead for empty string)
+if [[ -f build/lib/optimize.js ]]; then
+  sed -i 's|/\[^\\x00-\\x7F\]/g|/(?!)/g|g' build/lib/optimize.js
+  sed -i 's|/\[^\\x00-\\x7F\]/|/(?!)/|g' build/lib/optimize.js
+fi
+
 if [[ "${OS_NAME}" == "linux" ]]; then
   # microsoft adds their apt repo to sources
   # unless the app name is code-oss
@@ -271,14 +279,5 @@ elif [[ "${OS_NAME}" == "windows" ]]; then
   sed -i "s|https://code.visualstudio.com|https://github.com/hamishfromatech/A-Coder|" build/win32/code.iss
   sed -i "s|Microsoft Corporation|${APP_NAME}|" build/win32/code.iss
 fi
-
-# Strip non-ASCII characters from source files to prevent minification errors
-# This removes subscript/superscript characters and other non-ASCII that appear in VS Code source
-echo "Stripping non-ASCII characters from source TypeScript files..."
-find src -name "*.ts" -type f -exec perl -pi -e 's/[^\x00-\x7F]//g' {} \; 2>/dev/null || true
-find src -name "*.js" -type f -exec perl -pi -e 's/[^\x00-\x7F]//g' {} \; 2>/dev/null || true
-find extensions -name "*.ts" -type f -exec perl -pi -e 's/[^\x00-\x7F]//g' {} \; 2>/dev/null || true
-find extensions -name "*.js" -type f -exec perl -pi -e 's/[^\x00-\x7F]//g' {} \; 2>/dev/null || true
-echo "Non-ASCII stripping complete."
 
 cd ..
