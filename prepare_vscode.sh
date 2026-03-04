@@ -272,4 +272,13 @@ elif [[ "${OS_NAME}" == "windows" ]]; then
   sed -i "s|Microsoft Corporation|${APP_NAME}|" build/win32/code.iss
 fi
 
+# Strip non-ASCII characters from source files to prevent minification errors
+# This removes subscript/superscript characters and other non-ASCII that appear in VS Code source
+echo "Stripping non-ASCII characters from source TypeScript files..."
+find src -name "*.ts" -type f -exec perl -pi -e 's/[^\x00-\x7F]//g' {} \; 2>/dev/null || true
+find src -name "*.js" -type f -exec perl -pi -e 's/[^\x00-\x7F]//g' {} \; 2>/dev/null || true
+find extensions -name "*.ts" -type f -exec perl -pi -e 's/[^\x00-\x7F]//g' {} \; 2>/dev/null || true
+find extensions -name "*.js" -type f -exec perl -pi -e 's/[^\x00-\x7F]//g' {} \; 2>/dev/null || true
+echo "Non-ASCII stripping complete."
+
 cd ..
