@@ -235,10 +235,9 @@ replace 's|([0-9]) Microsoft|\1 ${APP_NAME}|' build/lib/electron.ts
 
 # Disable non-ASCII character check in optimize.js
 # The check is overly strict and fails on legitimate Unicode characters in VS Code source
-# Replace the non-ASCII regex with one that never matches (negative lookahead for empty string)
+# Replace the non-ASCII regex with one that never matches (null byte pattern)
 if [[ -f build/lib/optimize.js ]]; then
-  sed -i 's|/\[^\\x00-\\x7F\]/g|/(?!)/g|g' build/lib/optimize.js
-  sed -i 's|/\[^\\x00-\\x7F\]/|/(?!)/|g' build/lib/optimize.js
+  sed -i 's|/\[^\\x00-\\xFF\]+/g|/\\x00/g|g' build/lib/optimize.js
 fi
 
 if [[ "${OS_NAME}" == "linux" ]]; then
