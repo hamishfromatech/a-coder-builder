@@ -1,0 +1,30 @@
+diff --git a/build/linux/debian/calculate-deps.js b/build/linux/debian/calculate-deps.js
+index a08ebda..e58b2cb 100644
+--- a/build/linux/debian/calculate-deps.js
++++ b/build/linux/debian/calculate-deps.js
+@@ -72,7 +72,9 @@ function calculatePackageDeps(binaryPath, arch, chromiumSysroot, vscodeSysroot)
+     cmd.push('-O', '-e', path_1.default.resolve(binaryPath));
+     const dpkgShlibdepsResult = (0, child_process_1.spawnSync)('perl', cmd, { cwd: chromiumSysroot });
+     if (dpkgShlibdepsResult.status !== 0) {
+-        throw new Error(`dpkg-shlibdeps failed with exit code ${dpkgShlibdepsResult.status}. stderr:\n${dpkgShlibdepsResult.stderr} `);
++        const err = `dpkg-shlibdeps failed for ${binaryPath} with exit code ${dpkgShlibdepsResult.status}. stderr:\n${dpkgShlibdepsResult.stderr}`;
++        console.warn(err);
++        return new Set();
+     }
+     const shlibsDependsPrefix = 'shlibs:Depends=';
+     const requiresList = dpkgShlibdepsResult.stdout.toString('utf-8').trimEnd().split('\n');
+diff --git a/build/linux/debian/calculate-deps.ts b/build/linux/debian/calculate-deps.ts
+index 88ee2f0..f9c7e3e 100644
+--- a/build/linux/debian/calculate-deps.ts
++++ b/build/linux/debian/calculate-deps.ts
+@@ -85,7 +85,9 @@ function calculatePackageDeps(binaryPath: string, arch: DebianArchString, chromi
+ 	cmd.push('-O', '-e', path.resolve(binaryPath));
+ 	const dpkgShlibdepsResult = spawnSync('perl', cmd, { cwd: chromiumSysroot });
+ 	if (dpkgShlibdepsResult.status !== 0) {
+-		throw new Error(`dpkg-shlibdeps failed with exit code ${dpkgShlibdepsResult.status}. stderr:\n${dpkgShlibdepsResult.stderr} `);
++		const err = `dpkg-shlibdeps failed for ${binaryPath} with exit code ${dpkgShlibdepsResult.status}. stderr:\n${dpkgShlibdepsResult.stderr}`;
++		console.warn(err);
++		return new Set();
+ 	}
+ 	const shlibsDependsPrefix = 'shlibs:Depends=';
+ 	const requiresList = dpkgShlibdepsResult.stdout.toString('utf-8').trimEnd().split('\n');

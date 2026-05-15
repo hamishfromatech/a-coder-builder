@@ -11,3 +11,6 @@ if [[ "${VSCODE_ARCH}" == "arm64" ]]; then
 elif [[ "${VSCODE_ARCH}" == "armhf" ]]; then
   sudo apt-get install -y gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf crossbuild-essential-armhf
 fi
+
+# install libvips-dev for sharp image processing dependency
+sudo apt-get install -y libvips-dev || true
