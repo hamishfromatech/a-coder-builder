@@ -20,11 +20,13 @@ ingredients:
     - ls @@APPNAME@@_*.deb | cut -d _ -f 2 > VERSION
 
 script:
-  - sed -i -e 's|/usr/share/pixmaps/||g' usr/share/applications/@@APPNAME@@.desktop
-  - sed -i 's|/usr/share/void/void|/usr/share/codium/codium|' usr/share/applications/@@APPNAME@@.desktop # added by BawsDeep
-  # - sed -i 's|Exec=/usr/share/void/void|Exec=void|' usr/share/applications/@@APPNAME@@.desktop # (either this or the above can be used)
-  - cp usr/share/applications/@@APPNAME@@.desktop .
-  - cp usr/share/pixmaps/@@ICON@@.png .
+  # Guard against missing desktop/icon files. pkg2appimage may extract a
+  # differently-named .desktop entry depending on the source .deb contents.
+  - if [ -f usr/share/applications/@@APPNAME@@.desktop ]; then sed -i -e 's|/usr/share/pixmaps/||g' usr/share/applications/@@APPNAME@@.desktop; fi
+  - if [ -f usr/share/applications/@@APPNAME@@.desktop ]; then sed -i 's|/usr/share/void/void|/usr/share/codium/codium|' usr/share/applications/@@APPNAME@@.desktop; fi # added by BawsDeep
+  # - if [ -f usr/share/applications/@@APPNAME@@.desktop ]; then sed -i 's|Exec=/usr/share/void/void|Exec=void|' usr/share/applications/@@APPNAME@@.desktop; fi # (either this or the above can be used)
+  - if [ -f usr/share/applications/@@APPNAME@@.desktop ]; then cp usr/share/applications/@@APPNAME@@.desktop .; fi
+  - if [ -f usr/share/pixmaps/@@ICON@@.png ]; then cp usr/share/pixmaps/@@ICON@@.png .; fi
   - /usr/bin/convert @@ICON@@.png -resize 512x512 usr/share/icons/hicolor/512x512/apps/@@ICON@@.png
   - /usr/bin/convert @@ICON@@.png -resize 256x256 usr/share/icons/hicolor/256x256/apps/@@ICON@@.png
   - /usr/bin/convert @@ICON@@.png -resize 128x128 usr/share/icons/hicolor/128x128/apps/@@ICON@@.png
