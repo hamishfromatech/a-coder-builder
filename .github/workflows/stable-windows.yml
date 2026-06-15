@@ -183,6 +183,8 @@ jobs:
       npm_config_runtime: 'electron'
       npm_config_disturl: 'https://electronjs.org/headers'
       npm_config_build_from_source: 'true'
+      # Help node-gyp locate Visual Studio 2022 on windows-latest runners
+      npm_config_msvs_version: '2022'
     outputs:
       RELEASE_VERSION: ${{ env.RELEASE_VERSION }}
       SHOULD_DEPLOY: ${{ env.SHOULD_DEPLOY }}
