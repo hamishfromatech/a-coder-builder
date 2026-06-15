@@ -217,6 +217,11 @@ jobs:
         uses: egor-tensin/setup-mingw@v3
         if: env.SHOULD_BUILD == 'yes'
 
+      - name: Install Visual Studio Build Tools
+        if: env.SHOULD_BUILD == 'yes'
+        run: |
+          choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.CMake.Project" --confirm
+
       - name: Check existing VSCodium tags/releases
         env:
           DISABLE_MSI: ${{ vars.DISABLE_STABLE_MSI }}
