@@ -11,9 +11,15 @@ tar -xzf ./vscode.tar.gz
 
 cd vscode || { echo "'vscode' dir not found"; exit 1; }
 
+# Force node-gyp to use Visual Studio 2022. The env var set in the workflow is not
+# always inherited by node-gyp when it runs inside lifecycle scripts on Windows,
+# and the auto-detection PowerShell script overflows the child process stdio buffer
+# on current windows-latest images, producing a false "no VS installed" error.
+npm config set msvs_version 2022
+
 for i in {1..5}; do # try 5 times
   npm ci && break
-  if [[ $i -eq 3 ]]; then
+  if [[ $i -eq 5 ]]; then
     echo "Npm install failed too many times" >&2
     exit 1
   fi
