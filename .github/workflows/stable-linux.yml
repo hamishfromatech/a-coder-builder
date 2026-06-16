@@ -204,6 +204,7 @@ jobs:
     env:
       BUILD_SOURCEVERSION: ${{ needs.compile.outputs.BUILD_SOURCEVERSION }}
       DISABLED: ${{ vars[format('DISABLE_STABLE_LINUX_APP_{0}', matrix.slug)] }}
+      HOME: /root
       MS_COMMIT: ${{ needs.check.outputs.MS_COMMIT }}
       MS_TAG: ${{ needs.check.outputs.MS_TAG }}
       RELEASE_VERSION: ${{ needs.check.outputs.RELEASE_VERSION }}
@@ -247,17 +248,13 @@ jobs:
         run: |
           rm -rf /github/home/.rustup /github/home/.cargo
           mkdir -p /root/.rustup /root/.cargo
-          export HOME=/root
         if: env.DISABLED != 'yes' && env.SHOULD_BUILD == 'yes'
 
       - uses: actions-rust-lang/setup-rust-toolchain@v1
-        env:
-          HOME: /root
         if: env.DISABLED != 'yes' && env.SHOULD_BUILD == 'yes'
 
-      - name: Set default Rust toolchain
+      - name: Verify Rust toolchain
         run: |
-          export HOME=/root
           rustup default stable
           rustup show
         if: env.DISABLED != 'yes' && env.SHOULD_BUILD == 'yes'
