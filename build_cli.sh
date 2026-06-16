@@ -38,6 +38,17 @@ if [[ "${OS_NAME}" == "osx" ]]; then
 
   cp "target/${VSCODE_CLI_TARGET}/release/code" "../../VSCode-darwin-${VSCODE_ARCH}/${NAME_SHORT}.app/Contents/Resources/app/bin/${TUNNEL_APPLICATION_NAME}"
 elif [[ "${OS_NAME}" == "windows" ]]; then
+  # Git for Windows ships a /usr/bin/link.exe (Unix hard-link utility) that
+  # shadows the MSVC linker in PATH, causing Rust builds to fail with:
+  #   /usr/bin/link: extra operand '...'
+  # Rename it so cargo uses the Visual Studio linker.
+  LINK_EXE=$(command -v link.exe 2>/dev/null || true)
+  echo "link.exe before cleanup: ${LINK_EXE}"
+  if [[ -n "${LINK_EXE}" ]] && [[ "${LINK_EXE}" == /usr/bin/link.exe || "${LINK_EXE}" == *Git/usr/bin/link.exe ]]; then
+    mv "${LINK_EXE}" "${LINK_EXE}.bak"
+  fi
+  echo "link.exe after cleanup: $(command -v link.exe 2>/dev/null || echo 'not found')"
+
   if [[ "${VSCODE_ARCH}" == "arm64" ]]; then
     VSCODE_CLI_TARGET="aarch64-pc-windows-msvc"
     export RUSTFLAGS="-C target-feature=+crt-static -Clink-args=/guard:cf -Clink-args=/CETCOMPAT:NO"
