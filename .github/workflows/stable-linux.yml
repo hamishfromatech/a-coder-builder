@@ -243,7 +243,16 @@ jobs:
         run: ./build/linux/deps.sh
         if: env.DISABLED != 'yes' && env.SHOULD_BUILD == 'yes'
 
+      - name: Clean stale rustup state
+        run: |
+          rm -rf /github/home/.rustup /github/home/.cargo
+          mkdir -p /root/.rustup /root/.cargo
+          export HOME=/root
+        if: env.DISABLED != 'yes' && env.SHOULD_BUILD == 'yes'
+
       - uses: actions-rust-lang/setup-rust-toolchain@v1
+        env:
+          HOME: /root
         if: env.DISABLED != 'yes' && env.SHOULD_BUILD == 'yes'
 
       - name: Download vscode artifact
