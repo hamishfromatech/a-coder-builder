@@ -220,7 +220,14 @@ jobs:
       - name: Install Visual Studio Build Tools
         if: env.SHOULD_BUILD == 'yes'
         run: |
-          choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.CMake.Project" --confirm
+          choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.CMake.Project --add Microsoft.VisualStudio.Component.Windows11SDK.22621" --confirm
+
+      - name: Setup MSVC dev environment
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          vsversion: 2022
+          arch: ${{ matrix.vscode_arch }}
+        if: env.SHOULD_BUILD == 'yes'
 
       - name: Check existing VSCodium tags/releases
         env:
