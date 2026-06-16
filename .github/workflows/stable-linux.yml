@@ -255,6 +255,13 @@ jobs:
           HOME: /root
         if: env.DISABLED != 'yes' && env.SHOULD_BUILD == 'yes'
 
+      - name: Set default Rust toolchain
+        run: |
+          export HOME=/root
+          rustup default stable
+          rustup show
+        if: env.DISABLED != 'yes' && env.SHOULD_BUILD == 'yes'
+
       - name: Download vscode artifact
         uses: actions/download-artifact@v4
         with:
